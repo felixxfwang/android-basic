@@ -1,0 +1,12 @@
+apply from: rootProject.file('gradle/library.gradle')
+apply from: rootProject.file('gradle/test.gradle')
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+//    implementation "androidx.lifecycle:lifecycle-common:2.2.0"
+//    implementation 'com.tencent.nijigen.apt:annotations:0.1.4'
+//    kapt 'com.tencent.nijigen.apt:apt:0.2.0'
+
+//    api 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.0'
+
+}

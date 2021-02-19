@@ -1,0 +1,7 @@
+apply from: rootProject.file('gradle/library.gradle')
+apply from: rootProject.file('gradle/test.gradle')
+
+dependencies {
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutine"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutine"
+}
