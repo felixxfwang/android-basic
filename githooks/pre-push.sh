@@ -10,10 +10,10 @@ checkGitStatus() {
         echo "git changed"
         git add .
         git commit -m "update submodule by pre-push hook"
-        git push
     else
         echo "git not changed"
     fi
+    git push
 }
 
 cd basic
