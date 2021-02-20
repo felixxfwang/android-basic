@@ -4,7 +4,6 @@ echo 'pre-push hook:'
 
 checkGitStatus() {
     status=`git status|grep 'nothing to commit'`
-    echo "$status"
     if [[ -z $status ]]; then
         echo "git changed"
         git add .
