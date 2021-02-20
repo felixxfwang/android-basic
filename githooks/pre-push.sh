@@ -24,5 +24,3 @@ checkGitStatus
 
 cd ../buildSrc
 checkGitStatus
-
-exit -1
