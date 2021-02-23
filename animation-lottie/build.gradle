@@ -3,4 +3,5 @@ apply from: rootProject.file('buildscripts/autoservice.gradle')
 
 dependencies {
     implementation project(':basic:animation')
+    implementation "com.airbnb.android:lottie:$lottie_version"
 }

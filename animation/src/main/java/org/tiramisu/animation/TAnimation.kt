@@ -1,5 +1,6 @@
 package org.tiramisu.animation
 
+import android.widget.ImageView
 import java.util.*
 
 /**
@@ -11,11 +12,11 @@ class TAnimation(
 
     companion object {
         fun loadDefaultAnimationProvider(): IAnimationProvider {
-            return ServiceLoader.load(IAnimationProvider::class.java).firstOrNull() ?: DefaultAnimationProvider()
+            return ServiceLoader.load(IAnimationProvider::class.java).firstOrNull() ?: EmptyAnimationProvider()
         }
-
-        fun instance(): TAnimation =  Holder.instance
     }
+}
 
-    object Holder { val instance = TAnimation() }
+fun ImageView.animate(assetName: String): IAnimationProvider {
+    return TAnimation().source(context, assetName).into(this)
 }
