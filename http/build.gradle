@@ -1,5 +1,5 @@
-apply from: rootProject.file('gradle/library.gradle')
-apply from: rootProject.file('gradle/test.gradle')
+apply from: rootProject.file('buildscripts/library.gradle')
+apply from: rootProject.file('buildscripts/test.gradle')
 
 dependencies {
 //    api 'com.squareup.retrofit2:retrofit:2.6.0'

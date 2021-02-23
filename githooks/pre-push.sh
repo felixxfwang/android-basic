@@ -24,3 +24,6 @@ checkGitStatus
 
 cd ../buildSrc
 checkGitStatus
+
+cd ../buildscripts
+checkGitStatus

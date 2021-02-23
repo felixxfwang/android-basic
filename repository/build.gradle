@@ -1,5 +1,5 @@
-apply from: rootProject.file('gradle/library.gradle')
-apply from: rootProject.file('gradle/test.gradle')
+apply from: rootProject.file('buildscripts/library.gradle')
+apply from: rootProject.file('buildscripts/test.gradle')
 
 dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutine"
