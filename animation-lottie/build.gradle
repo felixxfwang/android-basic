@@ -1,0 +1,6 @@
+apply from: rootProject.file('buildscripts/library.gradle')
+apply from: rootProject.file('buildscripts/autoservice.gradle')
+
+dependencies {
+    implementation project(':basic:animation')
+}
