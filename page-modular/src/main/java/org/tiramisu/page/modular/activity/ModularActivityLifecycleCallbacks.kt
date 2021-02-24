@@ -2,6 +2,7 @@ package org.tiramisu.page.modular.activity
 
 import android.app.Activity
 import android.app.Application
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import org.tiramisu.log.TLog
@@ -18,6 +19,9 @@ object ModularActivityLifecycleCallbacks : Application.ActivityLifecycleCallback
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         TLog.i(TAG, "onActivityCreated")
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            onActivityPreCreated(activity, savedInstanceState)
+        }
         (activity as? IActivityModularPage)?.modular?.onCreate(savedInstanceState)
     }
 
