@@ -8,5 +8,5 @@ dependencies {
 //    kapt 'com.tencent.nijigen.apt:apt:0.2.0'
 
 //    api 'com.bennyhuo.kotlin:coroutines-android-mainscope:1.0'
-
+    implementation project(':basic:log')
 }

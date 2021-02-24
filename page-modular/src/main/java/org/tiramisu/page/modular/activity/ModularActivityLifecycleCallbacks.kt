@@ -4,20 +4,25 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import org.tiramisu.log.TLog
 import org.tiramisu.page.modular.fragment.ModularFragmentLifecycleCallback
 
 object ModularActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
+    private const val TAG = "ModularActivityLifecycleCallbacks"
 
     override fun onActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) {
+        TLog.i(TAG, "onActivityPreCreated")
         (activity as? FragmentActivity)?.supportFragmentManager
             ?.registerFragmentLifecycleCallbacks(ModularFragmentLifecycleCallback, true)
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        TLog.i(TAG, "onActivityCreated")
         (activity as? IActivityModularPage)?.modular?.onCreate(savedInstanceState)
     }
 
     override fun onActivityStarted(activity: Activity) {
+        TLog.i(TAG, "onActivityStarted")
         (activity as? IActivityModularPage)?.modular?.onStart()
     }
 
