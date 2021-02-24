@@ -24,4 +24,6 @@ abstract class BaseFragmentModule<T: IPageModuleManager, B: ViewBinding, VM: Vie
     protected val vm by lazy { page.viewModel() }
 
     protected val fragment by lazy { page.fragment() }
+
+    protected fun requireContext() = fragment.requireContext()
 }
