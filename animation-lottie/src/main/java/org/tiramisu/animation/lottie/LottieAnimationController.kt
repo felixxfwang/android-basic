@@ -2,7 +2,9 @@ package org.tiramisu.animation.lottie
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import com.airbnb.lottie.LottieDrawable
+import com.airbnb.lottie.utils.MiscUtils
 import org.tiramisu.animation.IAnimationController
 import org.tiramisu.animation.IAnimationListener
 
@@ -10,8 +12,6 @@ import org.tiramisu.animation.IAnimationListener
  * @author felixxfwang
  */
 class LottieAnimationController(private val lottieDrawable: LottieDrawable): IAnimationController {
-
-    private val frameCount = lottieDrawable.maxFrame
 
     override fun start(from: Float, listener: IAnimationListener?) {
         doAnimate(from, 1F, false, listener)
@@ -32,8 +32,7 @@ class LottieAnimationController(private val lottieDrawable: LottieDrawable): IAn
 
         // setup
         lottieDrawable.repeatCount = if (isRepeat) LottieDrawable.INFINITE else 0
-        lottieDrawable.setMinFrame(from.times(frameCount).toInt())
-        lottieDrawable.setMaxFrame(to.times(frameCount).toInt())
+        setMinAndMaxProgress(from, to)
         lottieDrawable.addAnimatorListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
                 listener?.onAnimationStart()
@@ -50,5 +49,14 @@ class LottieAnimationController(private val lottieDrawable: LottieDrawable): IAn
 
         // restart
         lottieDrawable.playAnimation()
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun setMinAndMaxProgress(min: Float, max: Float) {
+        val composition = lottieDrawable.composition
+        lottieDrawable.setMinAndMaxFrame(
+                MiscUtils.lerp(composition.startFrame, composition.endFrame, min).toInt(),
+                MiscUtils.lerp(composition.startFrame, composition.endFrame, max).toInt()
+        )
     }
 }
