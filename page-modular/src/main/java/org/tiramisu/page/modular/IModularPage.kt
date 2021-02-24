@@ -4,7 +4,7 @@ interface IModularPage<T: IPageModuleManager> {
 
     val modular: T
 
-    fun onCreateModuleManager(): T? = null
+    fun onCreateModuleManager(): T
 
     fun addModule(module: IPageModule) {
         modular.addModule(module)

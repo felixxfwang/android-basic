@@ -17,7 +17,7 @@ interface IFragmentModularPage<BINDING: ViewBinding, VM: ViewModel>
 
     override val modular: FragmentModuleManager
         get() = modulesMap[this] ?: run {
-            (onCreateModuleManager() ?: FragmentModuleManager()).also {
+            onCreateModuleManager().also {
                 modulesMap[this] = it
                 it.setVisibilityChangedListener(this)
             }

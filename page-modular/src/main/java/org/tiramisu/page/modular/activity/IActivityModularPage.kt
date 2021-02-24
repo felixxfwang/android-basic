@@ -10,6 +10,6 @@ interface IActivityModularPage : IModularPage<ActivityModuleManager> {
 
     override val modular: ActivityModuleManager
         get() = modulesMap[this] ?: run {
-            (onCreateModuleManager() ?: ActivityModuleManager()).also { modulesMap[this] = it }
+            onCreateModuleManager().also { modulesMap[this] = it }
         }
 }
