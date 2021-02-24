@@ -36,7 +36,6 @@ open class FragmentModuleManager : AbstractModuleManager(),
     }
 
     override fun addModule(module: IPageModule) {
-        super.addModule(module)
         if (module is IFragmentModule) {
             modules.add(module)
         }

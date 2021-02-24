@@ -10,7 +10,6 @@ open class ActivityModuleManager : AbstractModuleManager(), IActivityModule {
     protected val modules by lazy { ArrayList<IActivityModule>() }
 
     override fun addModule(module: IPageModule) {
-        super.addModule(module)
         if (module is IActivityModule) {
             modules.add(module)
         }
