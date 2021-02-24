@@ -17,6 +17,6 @@ class TAnimation(
     }
 }
 
-fun ImageView.animate(assetName: String): IAnimationProvider {
-    return TAnimation().source(context, assetName).into(this)
+fun ImageView.animate(assetName: String): TAnimation {
+    return TAnimation().also {  it.source(context, assetName).into(this) }
 }
