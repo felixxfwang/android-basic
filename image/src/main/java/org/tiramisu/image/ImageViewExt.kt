@@ -40,10 +40,12 @@ fun setImageUrl(view: ImageView, imageUrl: LiveData<String>?) {
 }
 
 @BindingAdapter("assetSrc", "asCircle")
-fun setAssertSrc(view: ImageView, assetSrc: String, asCircle: Boolean = false) {
-    val request = view.with(view.context)
-    if (asCircle) {
-        request.options(options().asCircle())
+fun setAssertSrc(view: ImageView, assetSrc: String?, asCircle: Boolean = false) {
+    assetSrc?.let {
+        val request = view.with(view.context)
+        if (asCircle) {
+            request.options(options().asCircle())
+        }
+        request.load("file:///android_asset/$it")
     }
-    request.load("file:///android_asset/$assetSrc")
 }

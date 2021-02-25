@@ -3,6 +3,8 @@ package org.tiramisu.animation.lottie
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
 import com.airbnb.lottie.LottieDrawable
 import com.airbnb.lottie.utils.MiscUtils
 import org.tiramisu.animation.IAnimationController
@@ -12,20 +14,29 @@ import org.tiramisu.animation.IAnimationListener
  * @author felixxfwang
  */
 class LottieAnimationController(private val lottieDrawable: LottieDrawable): IAnimationController {
+    private val handler by lazy { Handler(Looper.getMainLooper()) }
 
     override fun start(from: Float, listener: IAnimationListener?) {
-        doAnimate(from, 1F, false, listener)
+        checkAndDoAnimate(from, 1F, false, listener)
     }
 
     override fun animateTo(from: Float, to: Float, listener: IAnimationListener?) {
-        doAnimate(from, to, false, listener)
+        checkAndDoAnimate(from, to, false, listener)
     }
 
     override fun repeat(from: Float, to: Float, listener: IAnimationListener?) {
-        doAnimate(from, to, true, listener)
+        checkAndDoAnimate(from, to, true, listener)
     }
 
-    private fun doAnimate(from: Float, to: Float, isRepeat: Boolean, listener: IAnimationListener?) {
+    private fun checkAndDoAnimate(from: Float, to: Float, isRepeat: Boolean, listener: IAnimationListener?) {
+        if (lottieDrawable.composition == null) {
+            handler.postDelayed({ checkAndDoAnimate(from, to, isRepeat, listener) }, 20)
+        } else {
+            doAnimate(isRepeat, from, to, listener)
+        }
+    }
+
+    private fun doAnimate(isRepeat: Boolean, from: Float, to: Float, listener: IAnimationListener?) {
         // cancel
         lottieDrawable.cancelAnimation()
         lottieDrawable.removeAllAnimatorListeners()
