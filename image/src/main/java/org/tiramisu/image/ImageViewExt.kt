@@ -38,3 +38,12 @@ fun ImageView.with(context: Context) = ImageRequest(context, this)
 fun setImageUrl(view: ImageView, imageUrl: LiveData<String>?) {
     view.with(view.context).load(imageUrl?.value)
 }
+
+@BindingAdapter("assetSrc", "asCircle")
+fun setAssertSrc(view: ImageView, assetSrc: String, asCircle: Boolean = false) {
+    val request = view.with(view.context)
+    if (asCircle) {
+        request.options(options().asCircle())
+    }
+    request.load("file:///android_asset/$assetSrc")
+}
