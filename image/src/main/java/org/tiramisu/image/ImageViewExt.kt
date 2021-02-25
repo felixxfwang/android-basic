@@ -2,6 +2,7 @@ package org.tiramisu.image
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
@@ -39,13 +40,19 @@ fun setImageUrl(view: ImageView, imageUrl: LiveData<String>?) {
     view.with(view.context).load(imageUrl?.value)
 }
 
-@BindingAdapter("assetSrc", "asCircle")
-fun setAssertSrc(view: ImageView, assetSrc: String?, asCircle: Boolean = false) {
+@BindingAdapter("assetSrc", "asCircle", "borderWidth", "borderColor")
+fun setAssertSrc(view: ImageView, assetSrc: String?, asCircle: Boolean = false, borderWidth: Float = 0F, borderColor: Int = Color.TRANSPARENT) {
     assetSrc?.let {
         val request = view.with(view.context)
+        val options = options()
         if (asCircle) {
-            request.options(options().asCircle())
+            options.asCircle()
         }
+        if (borderWidth > 0) {
+            options.borderWidth(borderWidth)
+            options.borderColor(borderColor)
+        }
+        request.options(options)
         request.load("file:///android_asset/$it")
     }
 }

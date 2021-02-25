@@ -103,6 +103,7 @@ class GlideImageClient : ImageLoadClient {
                 opt.isCircle -> builder.circleCrop()
                 opt.errorPlaceHolder != -1 -> builder.error(opt.errorPlaceHolder)
                 opt.loadingPlaceHolder != -1 -> builder.placeholder(opt.loadingPlaceHolder)
+                opt.borderWidth > 0 -> builder.transform(GlideCircleBorderTransform(opt.borderWidth, opt.borderColor))
             }
             builder
         } ?: builder

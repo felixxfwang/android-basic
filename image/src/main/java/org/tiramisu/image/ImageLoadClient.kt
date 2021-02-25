@@ -1,5 +1,6 @@
 package org.tiramisu.image
 
+import android.graphics.Color
 import android.widget.ImageView
 
 interface ImageLoadClient {
@@ -14,11 +15,23 @@ fun options() = ImageOptions()
 
 class ImageOptions {
     var isCircle = false
+    var borderWidth = 0F
+    var borderColor = Color.BLACK
     var loadingPlaceHolder = -1
     var errorPlaceHolder = -1
 
     fun asCircle(): ImageOptions {
         this.isCircle = true
+        return this
+    }
+
+    fun borderWidth(borderWidth: Float): ImageOptions {
+        this.borderWidth = borderWidth
+        return this
+    }
+
+    fun borderColor(borderColor: Int): ImageOptions {
+        this.borderColor = borderColor
         return this
     }
 
