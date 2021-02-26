@@ -9,5 +9,7 @@ interface IAnimationProvider {
 
     fun into(view: ImageView): IAnimationProvider
 
+    fun isReady(): Boolean
+
     fun animateController(): IAnimationController
 }

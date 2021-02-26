@@ -8,5 +8,7 @@ class EmptyAnimationProvider : IAnimationProvider {
 
     override fun into(view: ImageView): IAnimationProvider = this
 
+    override fun isReady(): Boolean = false
+
     override fun animateController(): IAnimationController = EmptyAnimationController()
 }
