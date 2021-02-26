@@ -2,6 +2,9 @@ package org.tiramisu.animation
 
 interface IAnimationController {
 
+    fun showFirstFrame()
+    fun showLastFrame()
+
     fun start(from: Float = 0F, listener: IAnimationListener? = null)
 
     fun animateTo(from: Float = 0F, to: Float, listener: IAnimationListener? = null)

@@ -16,6 +16,16 @@ import org.tiramisu.animation.IAnimationListener
 class LottieAnimationController(private val lottieDrawable: LottieDrawable): IAnimationController {
     private val handler by lazy { Handler(Looper.getMainLooper()) }
 
+    override fun showFirstFrame() {
+        lottieDrawable.cancelAnimation()
+        lottieDrawable.progress = 0F
+    }
+
+    override fun showLastFrame() {
+        lottieDrawable.cancelAnimation()
+        lottieDrawable.progress = 1F
+    }
+
     override fun start(from: Float, listener: IAnimationListener?) {
         checkAndDoAnimate(from, 1F, false, listener)
     }

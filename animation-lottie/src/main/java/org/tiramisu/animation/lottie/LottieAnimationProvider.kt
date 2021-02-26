@@ -14,7 +14,7 @@ import org.tiramisu.animation.IAnimationProvider
  */
 @AutoService(IAnimationProvider::class)
 class LottieAnimationProvider: BaseAnimationProvider<LottieDrawable>() {
-    private val lottieDrawable = LottieDrawable()
+    private val lottieDrawable by lazy { LottieDrawable() }
     private val controller: IAnimationController by lazy { LottieAnimationController(lottieDrawable) }
 
     init {
