@@ -1,6 +1,6 @@
 package org.tiramisu.http
 
-abstract class HttpParam {
+interface HttpParam {
 
-    abstract fun toMap(): Map<String, Any>
+    fun toMap(): Map<String, Any>
 }
