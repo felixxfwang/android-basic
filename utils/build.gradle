@@ -2,5 +2,5 @@ apply from: rootProject.file('buildscripts/library.gradle')
 apply from: rootProject.file('buildscripts/test.gradle')
 
 dependencies {
-    api 'com.blankj:utilcodex:1.26.0'
+    api 'com.blankj:utilcodex:1.29.0'
 }

@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tiramisu.utils" />
+    package="org.tiramisu.utils" >
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+</manifest>

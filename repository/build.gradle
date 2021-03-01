@@ -1,6 +1,12 @@
 apply from: rootProject.file('buildscripts/library.gradle')
 apply from: rootProject.file('buildscripts/test.gradle')
 
+android {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xallow-result-return-type"]
+    }
+}
+
 dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutine"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutine"
