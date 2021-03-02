@@ -36,9 +36,12 @@ class FuelHttpClient : HttpClient {
         params: P,
         headers: Map<String, Any>?
     ): HttpResult<T> {
-        val (_, _, result) = buildRequest(url, method, params, headers)
-            .responseObject(FuelResponseDeserializable(clazz))
-        return when (result) {
+        val request = buildRequest(url, method, params, headers)
+        val (_, _, r) = when (clazz) {
+            ByteArray::class.java -> request.response()
+            else -> request.responseObject(FuelResponseDeserializable(clazz))
+        }
+        return when (val result = r as Result<T, FuelError>) {
             is Result.Success -> HttpResult.success(result.get())
             is Result.Failure -> {
                 val error = result.error
