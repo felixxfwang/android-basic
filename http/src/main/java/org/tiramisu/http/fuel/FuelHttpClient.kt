@@ -73,7 +73,7 @@ class FuelHttpClient : HttpClient {
         override fun deserialize(response: Response): T {
             if (deserializer != null) {
                 val headers = response.headers.toMap()
-                return deserializer.deserializable(headers, response.data)
+                return deserializer.deserialize(headers, response.data)
             }
             return super.deserialize(response)
         }
