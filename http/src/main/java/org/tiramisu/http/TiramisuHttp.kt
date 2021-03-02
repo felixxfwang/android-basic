@@ -3,8 +3,6 @@ package org.tiramisu.http
 import android.content.Context
 import com.github.kittinunf.fuel.core.FuelManager
 import org.tiramisu.http.fuel.FuelHttpClient
-import java.security.KeyStore
-import java.security.cert.CertificateFactory
 import javax.net.ssl.*
 import kotlin.properties.Delegates
 
@@ -41,7 +39,7 @@ class TiramisuHttp {
         headers: Map<String, Any>? = null,
         callback: HttpCallback<P, T>? = null
     ): HttpCancellable {
-        return client.sendHttpRequest(wrapUrl(url), HttpMethod.GET, T::class.java, params, headers, callback)
+        return client.sendHttpRequest(wrapUrl(url), HttpMethod.GET, T::class.java, params, headers, null, callback)
     }
 
     inline fun <P: HttpParam, reified T : Any> post(
@@ -49,7 +47,7 @@ class TiramisuHttp {
         headers: Map<String, Any>? = null,
         callback: HttpCallback<P, T>? = null
     ) : HttpCancellable {
-        return client.sendHttpRequest(wrapUrl(url), HttpMethod.POST, T::class.java, params, headers, callback)
+        return client.sendHttpRequest(wrapUrl(url), HttpMethod.POST, T::class.java, params, headers, null, callback)
     }
 
     inline fun <P: HttpParam, reified T : Any> put(
@@ -57,7 +55,7 @@ class TiramisuHttp {
         headers: Map<String, Any>? = null,
         callback: HttpCallback<P, T>? = null
     ) : HttpCancellable {
-        return client.sendHttpRequest(wrapUrl(url), HttpMethod.PUT, T::class.java, params, headers, callback)
+        return client.sendHttpRequest(wrapUrl(url), HttpMethod.PUT, T::class.java, params, headers, null, callback)
     }
 
     inline fun <P: HttpParam, reified T : Any> delete(
@@ -65,7 +63,7 @@ class TiramisuHttp {
         headers: Map<String, Any>? = null,
         callback: HttpCallback<P, T>? = null
     ) : HttpCancellable {
-        return client.sendHttpRequest(wrapUrl(url), HttpMethod.DELETE, T::class.java, params, headers, callback)
+        return client.sendHttpRequest(wrapUrl(url), HttpMethod.DELETE, T::class.java, params, headers, null, callback)
     }
 
     private fun initFuelHttpClient(): HttpClient {
