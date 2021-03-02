@@ -18,11 +18,12 @@ class FuelHttpClient : HttpClient {
         clazz: Class<T>,
         params: P,
         headers: Map<String, Any>?,
+        deserializer: HttpResponseDeserializable<T>?,
         callback: HttpCallback<P, T>?
     ): HttpCancellable {
         val request = buildRequest(url, method, params, headers)
             .response(
-                FuelResponseDeserializable(clazz),
+                FuelResponseDeserializable(clazz, deserializer),
                 FuelResponseHandler(params, callback)
             )
         request.join()
@@ -34,14 +35,12 @@ class FuelHttpClient : HttpClient {
         method: HttpMethod,
         clazz: Class<T>,
         params: P,
-        headers: Map<String, Any>?
+        headers: Map<String, Any>?,
+        deserializer: HttpResponseDeserializable<T>?
     ): HttpResult<T> {
         val request = buildRequest(url, method, params, headers)
-        val (_, _, r) = when (clazz) {
-            ByteArray::class.java -> request.response()
-            else -> request.responseObject(FuelResponseDeserializable(clazz))
-        }
-        return when (val result = r as Result<T, FuelError>) {
+        val (_, _, result) = request.responseObject(FuelResponseDeserializable(clazz, deserializer))
+        return when (result) {
             is Result.Success -> HttpResult.success(result.get())
             is Result.Failure -> {
                 val error = result.error
@@ -67,8 +66,18 @@ class FuelHttpClient : HttpClient {
     }
 
     class FuelResponseDeserializable<T: Any>(
-        private val clazz: Class<T>
+        private val clazz: Class<T>,
+        private val deserializer: HttpResponseDeserializable<T>? = null
     ) : ResponseDeserializable<T> {
+
+        override fun deserialize(response: Response): T {
+            if (deserializer != null) {
+                val headers = response.headers.toMap()
+                return deserializer.deserializable(headers, response.data)
+            }
+            return super.deserialize(response)
+        }
+
         override fun deserialize(reader: Reader): T? {
             return Gson().fromJson<T>(reader, clazz)
         }
@@ -92,4 +101,8 @@ class FuelHttpClient : HttpClient {
         }
 
     }
+}
+
+fun Headers.toMap(): Map<String, String> {
+    return this.mapValues { it.value.joinToString(",") }
 }

@@ -11,6 +11,7 @@ interface HttpClient {
         clazz: Class<T>,
         params: P,
         headers: Map<String, Any>? = null,
+        deserializer: HttpResponseDeserializable<T>? = null,
         callback: HttpCallback<P, T>? = null
     ): HttpCancellable
 
@@ -22,6 +23,7 @@ interface HttpClient {
         method: HttpMethod,
         clazz: Class<T>,
         params: P,
-        headers: Map<String, Any>? = null
+        headers: Map<String, Any>? = null,
+        deserializer: HttpResponseDeserializable<T>? = null
     ): HttpResult<T>
 }
