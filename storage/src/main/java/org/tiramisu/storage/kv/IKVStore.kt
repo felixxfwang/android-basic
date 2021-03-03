@@ -39,6 +39,7 @@ interface IKVStore {
     fun getLong(key: String, defaultValue: Long): Long
     fun getFloat(key: String, defaultValue: Float): Float
     fun getBoolean(key: String, defaultValue: Boolean): Boolean
-    fun <T: Parcelable> get(key: String, defaultValue: T): T
-    fun get(key: String, defaultValue: ByteArray): ByteArray
+    fun <T: Parcelable> getParcelable(key: String, defaultValue: T): T
+    fun <T: Parcelable> getParcelable(key: String, clazz: Class<T>): T?
+    fun getByteArray(key: String, defaultValue: ByteArray): ByteArray
 }

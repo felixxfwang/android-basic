@@ -95,11 +95,15 @@ class MMKVStore(
         return kv.getBoolean(key, defaultValue)
     }
 
-    override fun <T : Parcelable> get(key: String, defaultValue: T): T {
+    override fun <T : Parcelable> getParcelable(key: String, defaultValue: T): T {
         return kv.decodeParcelable(key, defaultValue.javaClass, defaultValue)
     }
 
-    override fun get(key: String, defaultValue: ByteArray): ByteArray {
+    override fun <T : Parcelable> getParcelable(key: String, clazz: Class<T>): T? {
+        return kv.decodeParcelable(key, clazz)
+    }
+
+    override fun getByteArray(key: String, defaultValue: ByteArray): ByteArray {
         return kv.decodeBytes(key, defaultValue)
     }
 
