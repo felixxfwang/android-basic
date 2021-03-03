@@ -1,5 +1,7 @@
 package org.tiramisu.storage.kv
 
+import android.os.Parcelable
+
 interface IKVStore {
 
     companion object {
@@ -19,6 +21,10 @@ interface IKVStore {
 
     fun putBoolean(key: String, value: Boolean): IKVStore
 
+    fun <T: Parcelable> put(key: String, value: T): IKVStore
+
+    fun put(key: String, value: ByteArray): IKVStore
+
     fun remove(key: String): IKVStore
 
     fun clear(): IKVStore
@@ -33,4 +39,6 @@ interface IKVStore {
     fun getLong(key: String, defaultValue: Long): Long
     fun getFloat(key: String, defaultValue: Float): Float
     fun getBoolean(key: String, defaultValue: Boolean): Boolean
+    fun <T: Parcelable> get(key: String, defaultValue: T): T
+    fun get(key: String, defaultValue: ByteArray): ByteArray
 }

@@ -1,5 +1,6 @@
 package org.tiramisu.storage.kv.mmkv
 
+import android.os.Parcelable
 import com.tencent.mmkv.MMKV
 import org.tiramisu.storage.kv.IKVStore
 
@@ -37,6 +38,16 @@ class MMKVStore(
     }
 
     override fun putBoolean(key: String, value: Boolean): IKVStore {
+        kv.encode(key, value)
+        return this
+    }
+
+    override fun <T : Parcelable> put(key: String, value: T): IKVStore {
+        kv.encode(key, value)
+        return this
+    }
+
+    override fun put(key: String, value: ByteArray): IKVStore {
         kv.encode(key, value)
         return this
     }
@@ -82,6 +93,14 @@ class MMKVStore(
 
     override fun getBoolean(key: String, defaultValue: Boolean): Boolean {
         return kv.getBoolean(key, defaultValue)
+    }
+
+    override fun <T : Parcelable> get(key: String, defaultValue: T): T {
+        return kv.decodeParcelable(key, defaultValue.javaClass, defaultValue)
+    }
+
+    override fun get(key: String, defaultValue: ByteArray): ByteArray {
+        return kv.decodeBytes(key, defaultValue)
     }
 
 }
