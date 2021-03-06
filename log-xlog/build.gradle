@@ -1,0 +1,7 @@
+apply from: rootProject.file('buildscripts/library.gradle')
+apply from: rootProject.file('buildscripts/autoservice.gradle')
+
+dependencies {
+    implementation project(':basic:log')
+    implementation 'com.tencent.mars:mars-xlog:1.2.5'
+}
