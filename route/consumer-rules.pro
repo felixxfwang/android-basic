@@ -1,0 +1,1 @@
+-keep public class * extends org.tiramisu.route.TRouteApi  # Optional: Keep custom exceptions.

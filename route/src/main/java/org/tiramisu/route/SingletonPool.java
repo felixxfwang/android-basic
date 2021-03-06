@@ -24,7 +24,7 @@ class SingletonPool {
      * @param <T> impl实例
      */
     @NonNull
-    static <T> T get(Class<T> apiClazz, String implName) {
+    static <T> T get(Class<T> apiClazz, String implName) throws ClassNotFoundException {
         if (apiClazz == null || implName == null || implName.length() == 0) {
             throw new IllegalStateException("args null! ");
         }
@@ -34,6 +34,8 @@ class SingletonPool {
                 throw new IllegalStateException("getInstance null! @" + implName);
             }
             return (T) instance;
+        } catch (ClassNotFoundException e) {
+            throw e;
         } catch (Exception e) {
             String errorInfo = "build API fatal:" + apiClazz.getSimpleName() + " " + e.toString();
             throw new IllegalStateException(errorInfo, e);

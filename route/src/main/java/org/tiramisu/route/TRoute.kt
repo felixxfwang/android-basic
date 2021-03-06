@@ -8,6 +8,11 @@ object TRoute {
 
     fun <T : TRouteApi> api(apiClazz: Class<T>): T {
         val targetClassName: String = TRouteUtil.convertApiToImplClass(apiClazz)
-        return SingletonPool.get(apiClazz, targetClassName)
+       return try {
+            SingletonPool.get(apiClazz, targetClassName)
+        } catch (e: ClassNotFoundException) {
+            val emptyClassName = TRouteUtil.convertApiToEmptyImplClass(apiClazz)
+            SingletonPool.get(apiClazz, emptyClassName)
+        }
     }
 }
