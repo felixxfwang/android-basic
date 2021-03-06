@@ -1,1 +1,5 @@
 apply from: rootProject.file('buildscripts/library.gradle')
+
+dependencies {
+    api "com.alibaba:arouter-api:1.5.0"
+}

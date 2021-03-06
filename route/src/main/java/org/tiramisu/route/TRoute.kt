@@ -1,5 +1,8 @@
 package org.tiramisu.route
 
+import com.alibaba.android.arouter.facade.Postcard
+import com.alibaba.android.arouter.launcher.ARouter
+
 object TRoute {
 
     inline fun <reified T : TRouteApi> api(): T {
@@ -14,5 +17,9 @@ object TRoute {
             val emptyClassName = TRouteUtil.convertApiToEmptyImplClass(apiClazz)
             SingletonPool.get(apiClazz, emptyClassName)
         }
+    }
+
+    fun build(route: String): Postcard {
+        return ARouter.getInstance().build(route)
     }
 }

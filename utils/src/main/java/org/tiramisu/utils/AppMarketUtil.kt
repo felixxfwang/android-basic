@@ -6,9 +6,13 @@ import android.net.Uri
 
 object AppMarketUtil {
 
+    fun getGooglePlayUrl(packageName: String): String {
+        return "https://play.google.com/store/apps/details?id=$packageName"
+    }
+
     fun openGooglePlay(context: Context, packageName: String) {
         val intent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+            data = Uri.parse(getGooglePlayUrl(packageName))
             setPackage("com.android.vending")
         }
         context.startActivity(intent)
