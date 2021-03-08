@@ -6,11 +6,10 @@ import android.content.Intent
 object ShareUtil {
 
     fun shareUrl(context: Context, url: String) {
-        val shareIntent = Intent().apply {
-            action = Intent.ACTION_SEND
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
             putExtra(Intent.EXTRA_TEXT, url)
-            type = "image/jpeg"
+            type = "text/plain"
         }
-        context.startActivity(Intent.createChooser(shareIntent, "Choose Send Target"))
+        context.startActivity(Intent.createChooser(shareIntent, "Send to..."))
     }
 }

@@ -10,6 +10,10 @@ object AppMarketUtil {
         return "https://play.google.com/store/apps/details?id=$packageName"
     }
 
+    fun getMarketUrl(packageName: String): String {
+        return "market://details?id=$packageName"
+    }
+
     fun openGooglePlay(context: Context, packageName: String) {
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(getGooglePlayUrl(packageName))
