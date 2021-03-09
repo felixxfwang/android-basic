@@ -1,0 +1,1 @@
+-keep public class * implements org.tiramisu.log.ILogger
