@@ -1,5 +1,5 @@
 apply from: rootProject.file('buildscripts/library.gradle')
 
 dependencies {
-    implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation project(':basic:utils')
 }
