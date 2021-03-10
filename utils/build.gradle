@@ -3,4 +3,6 @@ apply from: rootProject.file('buildscripts/test.gradle')
 
 dependencies {
     api 'com.blankj:utilcodex:1.29.0'
+
+    implementation project(':basic:permissions')
 }
