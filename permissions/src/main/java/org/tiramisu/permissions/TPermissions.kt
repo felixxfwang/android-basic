@@ -4,7 +4,7 @@ import com.blankj.utilcode.util.PermissionHelper
 
 object TPermissions {
 
-    fun hasPermissions(permission: String): Boolean {
+    fun isPermissionGranted(permission: String): Boolean {
         return PermissionHelper.isGranted(permission)
     }
 

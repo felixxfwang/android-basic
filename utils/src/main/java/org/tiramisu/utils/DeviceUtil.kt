@@ -40,7 +40,7 @@ object DeviceUtil {
 
     @Synchronized
     private fun doGetImsi(): String {
-        return if (TPermissions.hasPermissions(permission.READ_PHONE_STATE)) {
+        return if (TPermissions.isPermissionGranted(permission.READ_PHONE_STATE)) {
             onImsiQueried(PhoneUtils.getIMSI())
         } else {
             TPermissions.requestPermissions(permission.READ_PHONE_STATE) { granted ->
