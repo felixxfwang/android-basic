@@ -1,27 +1,34 @@
 package org.tiramisu.permissions
 
 import com.blankj.utilcode.util.PermissionHelper
+import java.util.concurrent.atomic.AtomicBoolean
 
 object TPermissions {
+
+    private val isRequesting = AtomicBoolean(false)
 
     fun isPermissionGranted(permission: String): Boolean {
         return PermissionHelper.isGranted(permission)
     }
 
     fun requestPermissions(request: PermissionRequest) {
-        PermissionHelper.permission(request.permissions)
-                .callback(object : PermissionHelper.FullCallback {
-                    override fun onGranted(granted: MutableList<String>) {
-                        granted.forEach { request.callback?.onPermissionGranted(it) }
-                    }
+        if (isRequesting.compareAndSet(false, true)) {
+            PermissionHelper.permission(request.permissions)
+                    .callback(object : PermissionHelper.FullCallback {
+                        override fun onGranted(granted: MutableList<String>) {
+                            isRequesting.set(false)
+                            granted.forEach { request.callback?.onPermissionGranted(it) }
+                        }
 
-                    override fun onDenied(deniedForever: MutableList<String>, denied: MutableList<String>) {
-                        deniedForever.forEach { request.callback?.onPermissionDeniedForever(it) }
-                        denied.forEach { request.callback?.onPermissionDenied(it) }
-                    }
+                        override fun onDenied(deniedForever: MutableList<String>, denied: MutableList<String>) {
+                            isRequesting.set(false)
+                            deniedForever.forEach { request.callback?.onPermissionDeniedForever(it) }
+                            denied.forEach { request.callback?.onPermissionDenied(it) }
+                        }
 
-                })
-                .request()
+                    })
+                    .request()
+        }
     }
 
     fun requestPermissions(permission: String, callback: (Boolean) -> Unit) {

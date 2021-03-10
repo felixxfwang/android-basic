@@ -12,17 +12,21 @@ object DeviceUtil {
     private var mMnc = AtomicReference<String>()
 
     init {
-        doGetImsi(false)
-        getMcc()
-        getMnc()
+        initImsi()
     }
 
     fun mcc() = mMcc.get() ?: "NOT_READY"
     fun mnc() = mMnc.get() ?: "NOT_READY"
 
+    fun initImsi() {
+        doGetImsi(false)
+        getMcc()
+        getMnc()
+    }
+
     fun getImsi(): String {
         return if (mImsi.get().isNullOrBlank()) {
-            doGetImsi(true)
+            doGetImsi(false)
         } else {
             mImsi.get()
         }
