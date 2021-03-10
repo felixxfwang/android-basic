@@ -20,29 +20,28 @@ object DeviceUtil {
         }
     }
 
-    fun getMcc(): String = mcc.get()
+    fun getMcc(): String = mcc.get() ?: StringUtil.EMPTY
 
-    fun getMnc(): String = mnc.get()
+    fun getMnc(): String = mnc.get() ?: StringUtil.EMPTY
 
     fun getMcc(context: Activity): String {
-        return getImsi(context).let { if (it.length >= 3) it.substring(0, 3) else "" }
+        return getImsi(context).let { if (it.length >= 3) it.substring(0, 3) else StringUtil.EMPTY }
     }
 
     fun getMnc(context: Activity): String {
-        return getImsi(context).let { if (it.length >= 5) it.substring(3, 5) else "" }
+        return getImsi(context).let { if (it.length >= 5) it.substring(3, 5) else StringUtil.EMPTY }
     }
 
     @Synchronized
     private fun doGetImsi(context: Activity): String {
-        return onImsiQueried(PhoneUtils.getIMSI())
-//        if (TPermissions.hasPermissions(context, permission.READ_PHONE_STATE)) {
-//            return onImsiQueried(PhoneUtils.getIMSI())
-//        } else {
-//            TPermissions.requestPermission(context, permission.READ_PHONE_STATE) { granted ->
-//                if (granted) onImsiQueried(PhoneUtils.getIMSI())
-//            }
-//            return ""
-//        }
+        return if (TPermissions.hasPermissions(context, permission.READ_PHONE_STATE)) {
+            onImsiQueried(PhoneUtils.getIMSI())
+        } else {
+            TPermissions.requestPermission(context, permission.READ_PHONE_STATE) { granted ->
+                if (granted) onImsiQueried(PhoneUtils.getIMSI())
+            }
+            StringUtil.EMPTY
+        }
     }
 
     private fun onImsiQueried(imsi: String): String {
