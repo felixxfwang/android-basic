@@ -99,11 +99,17 @@ class GlideImageClient : ImageLoadClient {
 
     private fun options(builder: RequestBuilder<Drawable>, options: ImageOptions?): RequestBuilder<Drawable> {
         return options?.let { opt ->
-            when {
-                opt.isCircle -> builder.circleCrop()
-                opt.errorPlaceHolder != -1 -> builder.error(opt.errorPlaceHolder)
-                opt.loadingPlaceHolder != -1 -> builder.placeholder(opt.loadingPlaceHolder)
-                opt.borderWidth > 0 -> builder.transform(GlideCircleBorderTransform(opt.borderWidth, opt.borderColor))
+            if (opt.isCircle) {
+                builder.circleCrop()
+            }
+            if (opt.errorPlaceHolder != -1) {
+                builder.error(opt.errorPlaceHolder)
+            }
+            if (opt.loadingPlaceHolder != -1) {
+                builder.placeholder(opt.loadingPlaceHolder)
+            }
+            if (opt.borderWidth > 0) {
+                builder.transform(GlideCircleBorderTransform(opt.borderWidth, opt.borderColor))
             }
             builder
         } ?: builder
