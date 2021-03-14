@@ -1,7 +1,9 @@
+import org.tiramisu.gradle.Deps
+
 apply from: rootProject.file('buildscripts/library.gradle')
 apply from: rootProject.file('buildscripts/autoservice.gradle')
 
 dependencies {
-    implementation project(':basic:animation')
+    implementation project(Deps.Tiramisu.Basic.animation)
     implementation "com.airbnb.android:lottie:$lottie_version"
 }
