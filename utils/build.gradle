@@ -5,4 +5,5 @@ dependencies {
     api 'com.blankj:utilcodex:1.29.0'
 
     implementation project(':basic:permissions')
+    implementation 'androidx.lifecycle:lifecycle-process:2.3.0'
 }
