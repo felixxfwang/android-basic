@@ -64,9 +64,9 @@ object DeviceUtil {
         }
     }
 
-    private fun onImsiQueried(imsi: String): String {
+    private fun onImsiQueried(imsi: String?): String {
         this.mImsi.set(imsi)
-        return imsi
+        return imsi ?: StringUtil.EMPTY
     }
 
 }
