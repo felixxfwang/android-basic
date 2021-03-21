@@ -28,7 +28,7 @@ object AppUtil : LifecycleObserver {
         listeners.forEach { it.onForeground() }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START) @Keep
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP) @Keep
     fun onBackground() {
         listeners.forEach { it.onBackground() }
     }
