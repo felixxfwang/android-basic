@@ -5,8 +5,8 @@ import android.os.Parcelable
 interface IKVStore {
 
     companion object {
-        const val MULTI_PROCESS_MODE = 1
-        const val SINGLE_PROCESS_MODE = 2
+        const val SINGLE_PROCESS_MODE = 1
+        const val MULTI_PROCESS_MODE = 2
     }
 
     fun putString(key: String, value: String): IKVStore
