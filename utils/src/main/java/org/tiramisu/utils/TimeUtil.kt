@@ -10,6 +10,6 @@ object TimeUtil {
         val hour = millis / HOUR
         val left = millis % HOUR
         val postfix = TimeUtils.millis2String(left, "mm:ss")
-        return if (hour > 0) "$hour:$postfix" else postfix
+        return "$hour:$postfix"
     }
 }
