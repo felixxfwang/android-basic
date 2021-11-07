@@ -3,6 +3,7 @@ package org.tiramisu.http.fuel
 import com.github.kittinunf.fuel.core.*
 import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.httpPut
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
@@ -57,7 +58,7 @@ class FuelHttpClient : HttpClient {
         val parameters = params.toMap().entries.map { it.key to it.value }
         val request = when (method) {
             HttpMethod.GET -> url.httpGet(parameters)
-            HttpMethod.POST -> url.httpGet(parameters)
+            HttpMethod.POST -> url.httpPost(parameters)
             HttpMethod.PUT -> url.httpPut(parameters)
             HttpMethod.DELETE -> url.httpDelete(parameters)
         }
